@@ -8,13 +8,14 @@ import tofu.optics.macros.{ClassyOptics, promote}
 
 @ClassyOptics
 final case class AppContext(
-  @promote conf: ConfigBundle
+  @promote conf: ConfigBundle,
+  traceId: TraceId
 )
 
 object AppContext {
 
   def apply[F[_]: Applicative]: F[AppContext] =
-    ConfigBundle[F] map (AppContext(_))
+    ConfigBundle[F] map (AppContext(_, TraceId("[Initial]")))
 
-  implicit def loggable: Loggable[AppContext] = Loggable.empty
+  implicit def loggable: Loggable[AppContext] = Loggable[TraceId].contramap[AppContext](_.traceId)
 }

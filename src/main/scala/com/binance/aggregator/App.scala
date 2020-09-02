@@ -27,7 +27,7 @@ object App extends TaskApp {
   override def run(args: List[String]): Task[ExitCode] =
     init.use { case (program, ctx) => program.run.compile.drain.run(ctx) as ExitCode.Success }
 
-  type InitF[+A] = Task[A]
+  type InitF[+A]   = Task[A]
   type AppF[+A]    = Env[AppContext, A]
   type StreamF[+A] = Stream[AppF, A]
 
@@ -50,7 +50,7 @@ object App extends TaskApp {
       aggregator                                  <- Resource.liftF(Aggregator[StreamF, InitF, AppF])
     } yield aggregator -> ctx
 
-  private def makeWs[F[_]: ConcurrentEffect: ContextShift]: F[Ws[F]]   =
+  private def makeWs[F[_]: ConcurrentEffect: ContextShift]: F[Ws[F]] =
     for {
       implicit0(wsh: WsHandler[F])    <- Fs2WebSocketHandler[F]()
       implicit0(back: HttpBackend[F]) <- AsyncHttpClientFs2Backend[F]()
