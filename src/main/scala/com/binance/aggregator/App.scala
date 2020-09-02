@@ -24,12 +24,12 @@ import tofu.syntax.monadic._
 
 object App extends TaskApp {
 
-  override def run(args: List[String]): Task[ExitCode] =
-    init.use { case (program, ctx) => program.run.compile.drain.run(ctx) as ExitCode.Success }
-
   type InitF[+A]   = Task[A]
   type AppF[+A]    = Env[AppContext, A]
   type StreamF[+A] = Stream[AppF, A]
+
+  override def run(args: List[String]): Task[ExitCode] =
+    init.use { case (program, ctx) => program.run.compile.drain.run(ctx) as ExitCode.Success }
 
   implicit private val logs: Logs[InitF, AppF]                = Logs.withContext[InitF, AppF]
   implicit private val loggableContext: LoggableContext[AppF] = LoggableContext.of[AppF].instance[AppContext]
