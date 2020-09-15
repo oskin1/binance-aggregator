@@ -9,8 +9,8 @@ import derevo.derive
 import tofu.higherKind.derived.embed
 import tofu.logging.{Logging, Logs}
 import tofu.streams.{Broadcast, Evals}
-import tofu.streams.syntax.broadcast._
-import tofu.streams.syntax.evals._
+import tofu.syntax.streams.broadcast._
+import tofu.syntax.streams.evals._
 import tofu.syntax.logging._
 import tofu.syntax.monadic._
 import tofu.syntax.context._

@@ -9,11 +9,11 @@ import com.binance.aggregator.repositories.CandlestickRepo
 import tofu.data.derived.ContextEmbed
 import tofu.higherKind.Embed
 import tofu.logging.{Logging, Logs}
-import tofu.streams.syntax.evals._
-import tofu.streams.syntax.temporal._
+import tofu.syntax.streams.evals._
+import tofu.syntax.streams.temporal._
+import tofu.syntax.streams.filter._
 import tofu.streams.{Evals, Temporal}
 import tofu.fs2Instances._
-import tofu.streams.syntax.filter._
 import tofu.syntax.context._
 import tofu.syntax.embed._
 import tofu.syntax.monadic._
